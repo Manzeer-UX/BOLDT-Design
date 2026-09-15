@@ -1,0 +1,11 @@
+Static reference frames
+Source: https://seal-nickname-focusing-bikini.trycloudflare.com/
+Public frame metadata: /src/demoData.ts
+Retrieved: 2026-09-15
+
+frame-000194.jpg | /option-a/frame-000194.jpg | F-194 | video timestamp 00:03:13
+frame-000232.jpg | /option-a/frame-000232.jpg | F-232 | video timestamp 00:03:51
+frame-000272.jpg | /option-a/frame-000272.jpg | F-272 | video timestamp 00:04:31
+
+Source metadata provides video offsets, not wall-clock dates or time zones.
+Frames are sample previews, not verified matches to dashboard risk categories.

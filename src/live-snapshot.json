@@ -1,0 +1,826 @@
+{
+  "source": "https://seal-nickname-focusing-bikini.trycloudflare.com",
+  "capturedAt": "2026-09-15T12:39:50.451Z",
+  "reportUpdatedAt": "2026-09-15T11:07:45.404194Z",
+  "fileName": "Site_001.mp4",
+  "sourceDuration": 16015.786667,
+  "fps": 4,
+  "status": "stopped",
+  "latest": 18.356,
+  "reports": {
+    "updated_at": "2026-09-15T11:07:45.404194Z",
+    "schema_version": 1,
+    "report_period": {
+      "pouring_seconds": 0,
+      "no_pouring_seconds": 10,
+      "no_activity_seconds": 0,
+      "alert_count": 0,
+      "observed_seconds": 19
+    },
+    "daily_zone_summary": {
+      "rows": [
+        {
+          "zone_id": "zone-mu1237u8",
+          "zone_name": "Zone 1",
+          "pouring_seconds": 0,
+          "no_pouring_seconds": 5,
+          "no_activity_seconds": 8,
+          "average_workers": 0.38,
+          "peak_workers": 1,
+          "alert_count": 0,
+          "estimated_quantity": 0
+        },
+        {
+          "zone_id": "zone-mu123pc7",
+          "zone_name": "Zone 2",
+          "pouring_seconds": 0,
+          "no_pouring_seconds": 11,
+          "no_activity_seconds": 0,
+          "average_workers": 5.36,
+          "peak_workers": 6,
+          "alert_count": 0,
+          "estimated_quantity": 0
+        },
+        {
+          "zone_name": "Total",
+          "pouring_seconds": 0,
+          "no_pouring_seconds": 16,
+          "no_activity_seconds": 8,
+          "average_workers": 2.87,
+          "peak_workers": 6,
+          "alert_count": 0,
+          "estimated_quantity": 0,
+          "is_total": true
+        }
+      ]
+    },
+    "equipment_summary": {
+      "rows": [
+        {
+          "equipment_name": "Concrete Pump",
+          "active_producing_seconds": 0,
+          "observed_idle_seconds": 10,
+          "not_observed_seconds": 0,
+          "utilization_percent": 0,
+          "alert_count": 0,
+          "zones_served": []
+        }
+      ]
+    },
+    "alerts_report": {
+      "summary_rows": [
+        {
+          "zone_id": "zone-mu1237u8",
+          "zone_name": "Zone 1",
+          "total": 0,
+          "no_activity": 0,
+          "no_pouring": 0,
+          "high_concentration": 0,
+          "congestion": 0
+        },
+        {
+          "zone_id": "zone-mu123pc7",
+          "zone_name": "Zone 2",
+          "total": 0,
+          "no_activity": 0,
+          "no_pouring": 0,
+          "high_concentration": 0,
+          "congestion": 0
+        },
+        {
+          "zone_name": "Total",
+          "total": 0,
+          "no_activity": 0,
+          "no_pouring": 0,
+          "high_concentration": 0,
+          "congestion": 0,
+          "is_total": true
+        }
+      ],
+      "occurrence_rows": []
+    },
+    "quantity_report": {
+      "rows": [
+        {
+          "zone_id": "zone-mu1237u8",
+          "zone_name": "Zone 1",
+          "production_activity": "Concrete pouring",
+          "pouring_seconds": 0,
+          "rate_yd3_per_hour": 10.9,
+          "estimated_poured_yd3": 0,
+          "planned_yd3": 16.67,
+          "remaining_yd3": 16.67
+        },
+        {
+          "zone_id": "zone-mu123pc7",
+          "zone_name": "Zone 2",
+          "production_activity": "Concrete pouring",
+          "pouring_seconds": 0,
+          "rate_yd3_per_hour": 10.9,
+          "estimated_poured_yd3": 0,
+          "planned_yd3": 33.33,
+          "remaining_yd3": 33.33
+        },
+        {
+          "zone_name": "Total",
+          "production_activity": "Concrete pouring",
+          "pouring_seconds": 0,
+          "rate_yd3_per_hour": 10.9,
+          "estimated_poured_yd3": 0,
+          "planned_yd3": 50,
+          "remaining_yd3": 50,
+          "is_total": true
+        }
+      ]
+    },
+    "pour_progress": {
+      "concrete_poured_yd3": 0,
+      "remaining_yd3": 50,
+      "rate_yd3_per_hour": 10.9,
+      "progress_percent": 0
+    }
+  },
+  "zones": [
+    {
+      "zone_id": "zone-mu1237u8",
+      "zone_name": "Zone 1",
+      "current_state": "No workers / no production observed",
+      "current_worker_count": 0,
+      "average_worker_count": 0.38,
+      "peak_worker_count": 1,
+      "pouring_seconds": 0,
+      "workers_present_no_pouring_seconds": 5,
+      "no_workers_no_production_seconds": 8,
+      "unknown_seconds": 0,
+      "interruption_count": 1,
+      "longest_interruption_seconds": 5,
+      "high_occupancy_event_count": 0
+    },
+    {
+      "zone_id": "zone-mu123pc7",
+      "zone_name": "Zone 2",
+      "current_state": "Workers present, no pouring",
+      "current_worker_count": 5,
+      "average_worker_count": 5.36,
+      "peak_worker_count": 6,
+      "pouring_seconds": 0,
+      "workers_present_no_pouring_seconds": 11,
+      "no_workers_no_production_seconds": 0,
+      "unknown_seconds": 0,
+      "interruption_count": 1,
+      "longest_interruption_seconds": 11,
+      "high_occupancy_event_count": 0
+    }
+  ],
+  "periods": [
+    {
+      "zone_id": "zone-mu1237u8",
+      "zone_name": "Zone 1",
+      "state": "No workers / no production observed",
+      "start_second": 6,
+      "end_second": 9,
+      "duration_seconds": 4,
+      "avg_worker_count": 0,
+      "peak_worker_count": 0,
+      "quality": "valid",
+      "sourceEvidenceCount": 14,
+      "evidence": [
+        "/live-data/evidence-042.jpg",
+        "/live-data/evidence-043.jpg",
+        "/live-data/evidence-044.jpg",
+        "/live-data/evidence-045.jpg",
+        "/live-data/evidence-046.jpg",
+        "/live-data/evidence-047.jpg",
+        "/live-data/evidence-048.jpg",
+        "/live-data/evidence-049.jpg",
+        "/live-data/evidence-050.jpg",
+        "/live-data/evidence-051.jpg",
+        "/live-data/evidence-052.jpg",
+        "/live-data/evidence-053.jpg",
+        "/live-data/evidence-054.jpg",
+        "/live-data/evidence-055.jpg"
+      ]
+    },
+    {
+      "zone_id": "zone-mu1237u8",
+      "zone_name": "Zone 1",
+      "state": "Workers present, no pouring",
+      "start_second": 10,
+      "end_second": 14,
+      "duration_seconds": 5,
+      "avg_worker_count": 1,
+      "peak_worker_count": 1,
+      "quality": "valid",
+      "sourceEvidenceCount": 20,
+      "evidence": [
+        "/live-data/evidence-056.jpg",
+        "/live-data/evidence-057.jpg",
+        "/live-data/evidence-058.jpg",
+        "/live-data/evidence-059.jpg",
+        "/live-data/evidence-060.jpg",
+        "/live-data/evidence-061.jpg",
+        "/live-data/evidence-062.jpg",
+        "/live-data/evidence-063.jpg",
+        "/live-data/evidence-064.jpg",
+        "/live-data/evidence-065.jpg",
+        "/live-data/evidence-066.jpg",
+        "/live-data/evidence-067.jpg",
+        "/live-data/evidence-068.jpg",
+        "/live-data/evidence-069.jpg",
+        "/live-data/evidence-070.jpg",
+        "/live-data/evidence-071.jpg",
+        "/live-data/evidence-072.jpg",
+        "/live-data/evidence-073.jpg",
+        "/live-data/evidence-074.jpg",
+        "/live-data/evidence-075.jpg"
+      ]
+    },
+    {
+      "zone_id": "zone-mu1237u8",
+      "zone_name": "Zone 1",
+      "state": "No workers / no production observed",
+      "start_second": 15,
+      "end_second": 18,
+      "duration_seconds": 4,
+      "avg_worker_count": 0,
+      "peak_worker_count": 0,
+      "quality": "valid",
+      "sourceEvidenceCount": 14,
+      "evidence": [
+        "/live-data/evidence-076.jpg",
+        "/live-data/evidence-077.jpg",
+        "/live-data/evidence-078.jpg",
+        "/live-data/evidence-079.jpg",
+        "/live-data/evidence-080.jpg",
+        "/live-data/evidence-081.jpg",
+        "/live-data/evidence-082.jpg",
+        "/live-data/evidence-083.jpg",
+        "/live-data/evidence-084.jpg",
+        "/live-data/evidence-085.jpg",
+        "/live-data/evidence-086.jpg",
+        "/live-data/evidence-087.jpg",
+        "/live-data/evidence-088.jpg",
+        "/live-data/evidence-089.jpg"
+      ]
+    },
+    {
+      "zone_id": "zone-mu123pc7",
+      "zone_name": "Zone 2",
+      "state": "Workers present, no pouring",
+      "start_second": 6,
+      "end_second": 16,
+      "duration_seconds": 11,
+      "avg_worker_count": 5.36,
+      "peak_worker_count": 6,
+      "quality": "valid",
+      "sourceEvidenceCount": 42,
+      "evidence": [
+        "/live-data/evidence-042.jpg",
+        "/live-data/evidence-043.jpg",
+        "/live-data/evidence-044.jpg",
+        "/live-data/evidence-045.jpg",
+        "/live-data/evidence-046.jpg",
+        "/live-data/evidence-047.jpg",
+        "/live-data/evidence-048.jpg",
+        "/live-data/evidence-049.jpg",
+        "/live-data/evidence-050.jpg",
+        "/live-data/evidence-051.jpg",
+        "/live-data/evidence-052.jpg",
+        "/live-data/evidence-053.jpg",
+        "/live-data/evidence-054.jpg",
+        "/live-data/evidence-055.jpg",
+        "/live-data/evidence-056.jpg",
+        "/live-data/evidence-057.jpg",
+        "/live-data/evidence-058.jpg",
+        "/live-data/evidence-059.jpg",
+        "/live-data/evidence-060.jpg",
+        "/live-data/evidence-061.jpg",
+        "/live-data/evidence-062.jpg",
+        "/live-data/evidence-063.jpg",
+        "/live-data/evidence-064.jpg",
+        "/live-data/evidence-065.jpg",
+        "/live-data/evidence-066.jpg",
+        "/live-data/evidence-067.jpg",
+        "/live-data/evidence-068.jpg",
+        "/live-data/evidence-069.jpg",
+        "/live-data/evidence-070.jpg",
+        "/live-data/evidence-071.jpg",
+        "/live-data/evidence-072.jpg",
+        "/live-data/evidence-073.jpg",
+        "/live-data/evidence-074.jpg",
+        "/live-data/evidence-075.jpg",
+        "/live-data/evidence-076.jpg",
+        "/live-data/evidence-077.jpg",
+        "/live-data/evidence-078.jpg",
+        "/live-data/evidence-079.jpg",
+        "/live-data/evidence-080.jpg",
+        "/live-data/evidence-081.jpg",
+        "/live-data/evidence-082.jpg",
+        "/live-data/evidence-083.jpg"
+      ]
+    }
+  ],
+  "alerts": [],
+  "activities": [
+    {
+      "id": "activity-local-mp4-construction-ui-live-local-mp4_construction-ui-live_20260915T110729631880Z_epoch-0-no_pouring-0-6_659",
+      "type": "no_pouring",
+      "label": "No pouring",
+      "start": 6.66,
+      "end": 16.64,
+      "duration": 9.98,
+      "confidence": null,
+      "reason": "Workers are present, but no concrete pouring is confirmed.",
+      "evidence": [
+        "/live-data/evidence-001.jpg",
+        "/live-data/evidence-002.jpg",
+        "/live-data/evidence-003.jpg",
+        "/live-data/evidence-004.jpg",
+        "/live-data/evidence-005.jpg",
+        "/live-data/evidence-006.jpg",
+        "/live-data/evidence-007.jpg",
+        "/live-data/evidence-008.jpg",
+        "/live-data/evidence-009.jpg",
+        "/live-data/evidence-010.jpg",
+        "/live-data/evidence-011.jpg",
+        "/live-data/evidence-012.jpg",
+        "/live-data/evidence-013.jpg",
+        "/live-data/evidence-014.jpg",
+        "/live-data/evidence-015.jpg",
+        "/live-data/evidence-016.jpg",
+        "/live-data/evidence-017.jpg",
+        "/live-data/evidence-018.jpg",
+        "/live-data/evidence-019.jpg",
+        "/live-data/evidence-020.jpg",
+        "/live-data/evidence-021.jpg",
+        "/live-data/evidence-022.jpg",
+        "/live-data/evidence-023.jpg",
+        "/live-data/evidence-024.jpg",
+        "/live-data/evidence-025.jpg",
+        "/live-data/evidence-026.jpg",
+        "/live-data/evidence-027.jpg",
+        "/live-data/evidence-028.jpg",
+        "/live-data/evidence-029.jpg",
+        "/live-data/evidence-030.jpg",
+        "/live-data/evidence-031.jpg",
+        "/live-data/evidence-032.jpg",
+        "/live-data/evidence-033.jpg",
+        "/live-data/evidence-034.jpg",
+        "/live-data/evidence-035.jpg",
+        "/live-data/evidence-036.jpg",
+        "/live-data/evidence-037.jpg",
+        "/live-data/evidence-038.jpg",
+        "/live-data/evidence-039.jpg",
+        "/live-data/evidence-040.jpg",
+        "/live-data/evidence-041.jpg"
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-001.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-002.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-003.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-004.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-005.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-006.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-007.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-008.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-009.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-010.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-011.jpg"
+    },
+    {
+      "seconds": 10.32,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-012.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-013.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-014.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-015.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-016.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-017.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-018.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-019.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-020.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-021.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-022.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-023.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-024.jpg"
+    },
+    {
+      "seconds": 13.36,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-025.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-026.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-027.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-028.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-029.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-030.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-031.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-032.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-033.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-034.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-035.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-036.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-037.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-038.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-039.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-040.jpg"
+    },
+    {
+      "seconds": 16.64,
+      "reason": "Workers are present, but no concrete pump signal is detected.",
+      "image": "/live-data/evidence-041.jpg"
+    },
+    {
+      "seconds": 6.659,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-042.jpg"
+    },
+    {
+      "seconds": 6.849,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-043.jpg"
+    },
+    {
+      "seconds": 7.15,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-044.jpg"
+    },
+    {
+      "seconds": 7.351,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-045.jpg"
+    },
+    {
+      "seconds": 7.653,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-046.jpg"
+    },
+    {
+      "seconds": 7.854,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-047.jpg"
+    },
+    {
+      "seconds": 8.158,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-048.jpg"
+    },
+    {
+      "seconds": 8.359,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-049.jpg"
+    },
+    {
+      "seconds": 8.662,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-050.jpg"
+    },
+    {
+      "seconds": 8.813,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-051.jpg"
+    },
+    {
+      "seconds": 9.116,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-052.jpg"
+    },
+    {
+      "seconds": 9.317,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-053.jpg"
+    },
+    {
+      "seconds": 9.62,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-054.jpg"
+    },
+    {
+      "seconds": 9.823,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-055.jpg"
+    },
+    {
+      "seconds": 10.124,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-056.jpg"
+    },
+    {
+      "seconds": 10.325,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-057.jpg"
+    },
+    {
+      "seconds": 10.627,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-058.jpg"
+    },
+    {
+      "seconds": 10.828,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-059.jpg"
+    },
+    {
+      "seconds": 11.131,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-060.jpg"
+    },
+    {
+      "seconds": 11.332,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-061.jpg"
+    },
+    {
+      "seconds": 11.636,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-062.jpg"
+    },
+    {
+      "seconds": 11.838,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-063.jpg"
+    },
+    {
+      "seconds": 12.141,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-064.jpg"
+    },
+    {
+      "seconds": 12.342,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-065.jpg"
+    },
+    {
+      "seconds": 12.646,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-066.jpg"
+    },
+    {
+      "seconds": 12.848,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-067.jpg"
+    },
+    {
+      "seconds": 13.152,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-068.jpg"
+    },
+    {
+      "seconds": 13.355,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-069.jpg"
+    },
+    {
+      "seconds": 13.659,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-070.jpg"
+    },
+    {
+      "seconds": 13.862,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-071.jpg"
+    },
+    {
+      "seconds": 14.165,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-072.jpg"
+    },
+    {
+      "seconds": 14.317,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-073.jpg"
+    },
+    {
+      "seconds": 14.621,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-074.jpg"
+    },
+    {
+      "seconds": 14.824,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-075.jpg"
+    },
+    {
+      "seconds": 15.125,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-076.jpg"
+    },
+    {
+      "seconds": 15.328,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-077.jpg"
+    },
+    {
+      "seconds": 15.632,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-078.jpg"
+    },
+    {
+      "seconds": 15.836,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-079.jpg"
+    },
+    {
+      "seconds": 16.139,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-080.jpg"
+    },
+    {
+      "seconds": 16.342,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-081.jpg"
+    },
+    {
+      "seconds": 16.644,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-082.jpg"
+    },
+    {
+      "seconds": 16.845,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-083.jpg"
+    },
+    {
+      "seconds": 17.148,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-084.jpg"
+    },
+    {
+      "seconds": 17.35,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-085.jpg"
+    },
+    {
+      "seconds": 17.652,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-086.jpg"
+    },
+    {
+      "seconds": 17.853,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-087.jpg"
+    },
+    {
+      "seconds": 18.155,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-088.jpg"
+    },
+    {
+      "seconds": 18.356,
+      "reason": "Zone detection evidence",
+      "image": "/live-data/evidence-089.jpg"
+    }
+  ]
+}
