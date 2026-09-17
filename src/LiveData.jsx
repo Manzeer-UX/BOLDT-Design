@@ -4,9 +4,9 @@ import snapshot from './live-snapshot.json';
 import './live-data.css';
 
 const types = [
-  { id: 'pouring', label: 'Pouring', color: '#3e7965' },
-  { id: 'no-pouring', label: 'No pouring', color: '#d67535' },
-  { id: 'no-activity', label: 'No activity', color: '#778494' },
+  { id: 'pouring', label: 'Pouring', color: '#87958d' },
+  { id: 'no-pouring', label: 'No pouring', color: '#a18c96' },
+  { id: 'no-activity', label: 'No activity', color: '#777581' },
 ];
 const duration = seconds => seconds >= 3600 ? `${(seconds / 3600).toFixed(2)} hr` : `${Number((seconds / 60).toFixed(2))} min`;
 const dateLabel = new Date(snapshot.reportUpdatedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });

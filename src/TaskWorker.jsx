@@ -1,0 +1,16 @@
+
+import React from 'react';
+export default function TaskWorker({x,y,id,task}){
+ const label={rake:'CONCRETE FINISHING',hammer:'FORMWORK ASSEMBLY',inspect:'QUALITY INSPECTION'}[task];
+ return <g transform={`translate(${x} ${y}) scale(.7)`} className={'task-station task-'+task}>
+ {task==='rake'&&<g><path d="M-4 46 36 32 62 43 22 58Z" fill="#555" stroke="#888" strokeWidth=".6"/>{[0,1,2,3].map(i=><path key={i} d={`M${8+i*7} ${47+i*2}l29-10`} stroke="#aaaaaa" opacity=".25" strokeWidth=".6"/>)}<path className="finish-pass" d="M12 48 40 39" stroke="#ddd" opacity=".3" strokeWidth="2"/></g>}
+ {task==='hammer'&&<g stroke="#888" strokeWidth=".6"><path d="M18 27 43 18 63 28 38 37Z" fill="#666"/><path d="M18 27v5l20 10 25-9v-5L38 37Z" fill="#333"/><path d="M23 33v20m33-18v13M39 39v19" stroke="#555" strokeWidth="3"/><path d="M23 27 45 21M31 31 53 25" stroke="#aaa" opacity=".4"/><path d="M38 27v-4" stroke="#ddd"/></g>}
+ <g className="site-worker"><ellipse cy="45" rx="17" ry="5" fill="#000" opacity=".5"/>
+ <path d="M-5 20 -9 42 -13 44M5 20 9 42 13 44" stroke="#737373" strokeWidth="6" strokeLinecap="round"/><path d="M-13 45h8m14 0h7" stroke="#333" strokeWidth="4" strokeLinecap="round"/>
+ <g className="task-torso"><path d="M-9 0Q0-5 9 0L8 24H-8Z" fill="url(#column-metal)" stroke="#aaa" strokeWidth=".6"/><path d="M-4 0v24M4 0v24M-8 13H8" stroke="#ccc" strokeWidth="1.2"/><circle cy="-10" r="7" fill="#909090"/><path d="M-9-12Q-8-23 0-23Q8-23 9-12M-12-11H12" stroke="#eee" strokeWidth="1.2" fill="url(#camera-metal)"/></g>
+ {task==='rake'&&<g className="rake-action"><path d="M-8 4 0 14 15 10M8 3 15 8 21 17" stroke="#aaa" strokeWidth="4" strokeLinecap="round"/><path d="M12 2 36 42" stroke="#aaa" strokeWidth="2.2"/><path d="M25 46 45 38" stroke="#ccc" strokeWidth="2.8"/>{[0,1,2,3,4].map(i=><path key={i} d={`M${26+i*4} ${45-i*1.6}l2 3`} stroke="#999" strokeWidth="1"/>)}</g>}
+ {task==='hammer'&&<><path d="M-8 4 -3 17 22 26" stroke="#888" strokeWidth="4" strokeLinecap="round"/><g className="hammer-action"><path d="M8 4 18 13 27 17" stroke="#aaa" strokeWidth="4" strokeLinecap="round"/><path d="M23 11 37 27" stroke="#bbb" strokeWidth="2.6"/><path d="M32 29 41 23" stroke="#ddd" strokeWidth="4" strokeLinecap="square"/></g><path className="hammer-impact" d="M38 19v-4m5 8 4-2" stroke="#ddd" strokeWidth=".7"/></>}
+ {task==='inspect'&&<><path d="M-9 3 -14 15 2 21" stroke="#999" strokeWidth="4" strokeLinecap="round"/><path d="M-1 7 18 9 14 29-5 26Z" fill="#383838" stroke="#b5b5b5" strokeWidth=".8"/><path d="M5 7h8v4H5Z" fill="#bbb"/><path d="M1 15 12 17M0 19l10 2M-1 23l7 1" stroke="#888" strokeWidth=".7"/><g className="inspect-action"><path d="M9 3 20 12 10 20" stroke="#aaa" strokeWidth="4" strokeLinecap="round"/><path d="M9 22 14 15" stroke="#eee" strokeWidth="1.2"/></g></>}
+ <g className="worker-tracker"><rect x="-25" y="-32" width="53" height="84" stroke="#ddd" strokeOpacity=".15"/><path d="M-25-22V-32H-15M18-32H28V-22M28 42V52H18M-15 52H-25V42" stroke="#ccc" strokeWidth=".8"/><rect x="-25" y="-53" width="91" height="18" rx="2" fill="#151515" stroke="#aaa" strokeOpacity=".35" strokeWidth=".5"/><text x="-20" y="-46" fontSize="5.5" letterSpacing=".5" fill="#ddd">{id} · ACTIVE</text><text x="-20" y="-39" fontSize="5" letterSpacing=".4" fill="#999">{label}</text></g>
+ </g></g>;
+}
