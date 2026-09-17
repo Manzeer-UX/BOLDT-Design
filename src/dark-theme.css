@@ -267,7 +267,8 @@ input:not([type=checkbox]) { background: #0c0d10; border-color: #ffffff09; borde
   background: linear-gradient(130deg, #443b53, #2a2633);
   border-color: #b0a0d04a;
 }
-.ex-filters label, .ld-filters>label, .ld-search { background: #0d0e11b3; border-color: #ffffff0c; }
+.ex-filters label, .ex-filter-controls label, .ld-filters>label, .ld-search { background: #0d0e11b3; border-color: #ffffff0c; }
+.ex-filter-controls select { background: transparent; color: #e8e6ee; }
 .ex-trend-panel { background: linear-gradient(165deg, #0e0f12 35%, #19152170 100%), #0c0d0f; }
 .ex-trend-actual { stroke: #b0a2d1; stroke-width: 1.8; filter: drop-shadow(0 0 5px #b7a0ef70); }
 .ex-trend-area { opacity: .9; }

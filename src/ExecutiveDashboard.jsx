@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { LayoutDashboard, ChartNoAxesCombined, ShieldAlert, HardHat, ArrowUpRight, Download, LogOut, ChevronRight, CircleHelp, Clock3, Check, X, Building2, Layers3, CalendarDays, Users } from 'lucide-react';
+import { LayoutDashboard, ChartNoAxesCombined, ShieldAlert, HardHat, ArrowUpRight, LogOut, ChevronRight, CircleHelp, Clock3, Check, X, Building2, Layers3, CalendarDays, Users, FolderKanban, Plus, Pencil, Trash2, List, LayoutGrid } from 'lucide-react';
 import './executive.css';
 import PouringTimeline from './PouringTimeline';
 import RiskEvidence from './RiskEvidence';
 import ProgressTrend, { progressData } from './ProgressTrend';
 import LiveData from './LiveData';
 import boldtLogo from './assets/boldt-logo.svg';
+import cameraPreview from './assets/camera-preview.png';
 
 const report = {
   poured: 127, planned: 400, remaining: 261.7, rate: 35,
@@ -42,6 +43,25 @@ const equipmentTime = report.active + report.idle + report.unobserved;
 const equipmentOptions = [
   { id: 'concrete-pump', name: 'Concrete pump', utilization: report.utilization, status: 'Strong utilization', statusTone: 'green', description: 'Active for most of the observed period.', active: report.active, idle: report.idle, unobserved: report.unobserved, total: equipmentTime, note: '90% as reported. Time distribution uses 240m 00s.' },
 ];
+const managers = ['Avery Johnson', 'Morgan Lee', 'Priya Sharma', 'Daniel Brooks'];
+const equipmentChecklist = ['Concrete pump', 'Mixer truck', 'Tower crane', 'Excavator', 'Laser screed', 'Generator', 'Boom lift', 'Compactor'];
+const cameraOptions = ['Gate camera 01', 'Pour deck camera 02', 'North yard camera 03', 'Mobile crane camera 04'];
+const taskOptions = ['Pouring', 'Rebar inspection', 'Formwork', 'Material staging', 'Finishing', 'Safety watch'];
+const managerProfiles = [
+  { id: 'avery-johnson', name: 'Avery Johnson', email: 'avery.johnson@boldt.com', phone: '+1 414 555 0184', role: 'Senior Project Manager', project: 'Construction Stella', status: 'Active' },
+  { id: 'morgan-lee', name: 'Morgan Lee', email: 'morgan.lee@boldt.com', phone: '+1 920 555 0147', role: 'Operations Manager', project: 'Riverfront Core', status: 'Active' },
+  { id: 'priya-sharma', name: 'Priya Sharma', email: 'priya.sharma@boldt.com', phone: '+1 608 555 0192', role: 'Site Manager', project: 'North Yard Expansion', status: 'Non-Active' },
+  { id: 'daniel-brooks', name: 'Daniel Brooks', email: 'daniel.brooks@boldt.com', phone: '+1 262 555 0166', role: 'Delivery Manager', project: 'Lakeview Deck', status: 'Finished' },
+];
+const initialProjects = [
+  { id: 'construction-stella', name: 'Construction Stella', description: 'Concrete operations for Zone 1 with four-hour progress monitoring.', location: 'Milwaukee, WI', startDate: '2026-09-03', endDate: '2026-10-10', equipment: ['Concrete pump', 'Mixer truck', 'Laser screed'], assignee: 'Avery Johnson', status: 'Active' },
+  { id: 'riverfront-core', name: 'Riverfront Core', description: 'Structural prep and resource planning for the next pour cycle.', location: 'Green Bay, WI', startDate: '2026-09-18', endDate: '2026-11-02', equipment: ['Tower crane', 'Excavator', 'Generator'], assignee: 'Morgan Lee', status: 'Non-Active' },
+  { id: 'lakeview-deck', name: 'Lakeview Deck', description: 'Completed deck pour review with equipment and manager records archived.', location: 'Madison, WI', startDate: '2026-07-12', endDate: '2026-08-28', equipment: ['Concrete pump', 'Compactor'], assignee: 'Daniel Brooks', status: 'Finished' },
+];
+const projectCategories = ['All', 'Active', 'Non-Active', 'Finished'];
+const emptyZoneForm = { name: '', workerLimit: '', tasks: [], equipment: [], minClusterSize: '', crowdingSensitivity: 'Normal', breakTime: '', allowOverlap: false };
+const emptyProjectForm = { name: '', description: '', location: '', startDate: '', endDate: '', equipment: [], assignee: managers[0], status: 'Active', camera: cameraOptions[0], cameraLink: '', videoName: '', zones: [] };
+const emptyManagerForm = { name: '', email: '', phone: '', role: '', project: 'Construction Stella' };
 
 function Ring({ value, label, detail, color = '#20272b', size = 168 }) {
   return <div className="ex-ring" style={{ width: size, height: size }} role="img" aria-label={`${value}% ${label}`}>
@@ -53,6 +73,7 @@ function Segments({ items, total, label }) {
   return <div className="ex-segments" role="img" aria-label={label}>{items.map(item => <span key={item.label} title={`${item.label}: ${item.time}`} style={{ width: `${item.value / total * 100}%`, background: item.color }}/>)}</div>;
 }
 function PanelTitle({ icon: Icon, title, note }) { return <div className="ex-panel-title"><h2>{Icon && <Icon size={17}/>} {title}</h2>{note && <span>{note}</span>}</div>; }
+function ConfidenceScore() { return <div className="ex-confidence" role="meter" aria-label="Confidence Score" aria-valuemin={0} aria-valuemax={100} aria-valuenow={80}><div className="ex-confidence-gauge" aria-hidden="true">{Array.from({length:20}, (_, index) => <i key={index} className={index < 16 ? 'filled' : undefined} style={{transform: `rotate(${-85.5 + index * 9}deg)`}}/>)}<strong>80%</strong></div><span>Confidence Score</span></div>; }
 function EvidenceDialog({ item, close }) {
   const ref = useRef(null);
   useEffect(() => { const previous = document.activeElement; ref.current.showModal(); return () => previous?.focus(); }, []);
@@ -65,6 +86,177 @@ function EvidenceDialog({ item, close }) {
   </dialog>;
 }
 
+function ProjectsAdmin() {
+  const [projects, setProjects] = useState(initialProjects);
+  const [creating, setCreating] = useState(false);
+  const [editingId, setEditingId] = useState('');
+  const [category, setCategory] = useState('All');
+  const [view, setView] = useState('cards');
+  const [form, setForm] = useState(emptyProjectForm);
+  const [projectStep, setProjectStep] = useState(1);
+  const [zoneForm, setZoneForm] = useState(emptyZoneForm);
+  const [showZoneForm, setShowZoneForm] = useState(false);
+  const [createdProject, setCreatedProject] = useState('');
+  const visibleProjects = category === 'All' ? projects : projects.filter(project => project.status === category);
+  const isEditing = Boolean(editingId);
+  const canContinueProject = form.name && form.description && form.location && form.startDate && form.endDate;
+  function updateField(field, value) { setForm(current => ({ ...current, [field]: value })); }
+  function toggleEquipment(name) {
+    setForm(current => ({
+      ...current,
+      equipment: current.equipment.includes(name) ? current.equipment.filter(item => item !== name) : [...current.equipment, name],
+    }));
+  }
+  function toggleZoneMulti(field, name) {
+    setZoneForm(current => ({
+      ...current,
+      [field]: current[field].includes(name) ? current[field].filter(item => item !== name) : [...current[field], name],
+    }));
+  }
+  function addZone() {
+    if (!zoneForm.name || !zoneForm.workerLimit) return;
+    setForm(current => ({ ...current, zones: [...current.zones, { ...zoneForm, id: `${zoneForm.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'zone'}-${current.zones.length + 1}` }] }));
+    setZoneForm(emptyZoneForm);
+  }
+  function removeZone(id) { setForm(current => ({ ...current, zones: current.zones.filter(zone => zone.id !== id) })); }
+  function createProject(event) {
+    event.preventDefault();
+    if (isEditing) {
+      setProjects(current => current.map(project => project.id === editingId ? { ...project, ...form } : project));
+      setCreatedProject(`${form.name} updated`);
+      setEditingId('');
+    } else {
+      const next = { id: `${form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'project'}-${projects.length + 1}`, ...form };
+      setProjects(current => [next, ...current]);
+      setCreatedProject(`${form.name} created`);
+    }
+    setForm(emptyProjectForm);
+    setProjectStep(1);
+    setZoneForm(emptyZoneForm);
+    setShowZoneForm(false);
+    setCreating(false);
+  }
+  function startEdit(project) {
+    setForm({ ...emptyProjectForm, ...project, zones: project.zones || [] });
+    setEditingId(project.id);
+    setCreating(true);
+    setProjectStep(1);
+    setZoneForm(emptyZoneForm);
+    setShowZoneForm(false);
+    setCreatedProject('');
+  }
+  function cancelForm() { setCreating(false); setEditingId(''); setForm(emptyProjectForm); setProjectStep(1); setZoneForm(emptyZoneForm); setShowZoneForm(false); }
+  function deleteProject(project) {
+    setProjects(current => current.filter(item => item.id !== project.id));
+    if (editingId === project.id) cancelForm();
+    setCreatedProject(`${project.name} deleted`);
+  }
+  const projectActions = project => <div className="ex-project-card-actions"><button type="button" aria-label={`Edit ${project.name}`} title="Edit project" onClick={() => startEdit(project)}><Pencil size={15}/><span>Edit</span></button><button type="button" aria-label={`Delete ${project.name}`} title="Delete project" onClick={() => deleteProject(project)}><Trash2 size={15}/><span>Delete</span></button></div>;
+  return <section className="ex-projects-page" aria-labelledby="projects-title">
+    <header className="ex-heading ex-projects-heading"><div><span className="ex-kicker">ADMIN WORKSPACE</span><h1 id="projects-title">Projects</h1><p>Manage construction projects, assigned managers and equipment plans.</p></div><div className="ex-project-heading-actions"><span className="ex-project-count"><strong>{visibleProjects.length}</strong><span>{visibleProjects.length === 1 ? 'Project' : 'Projects'}</span></span><button type="button" className="ex-button dark" onClick={() => setCreating(true)}><Plus size={16}/> Create Projects</button></div></header>
+    {!creating && <div className="ex-project-filter"><label>Project category<select value={category} onChange={event => setCategory(event.target.value)}>{projectCategories.map(item => <option key={item}>{item}</option>)}</select></label><div className="ex-project-view-toggle" role="group" aria-label="Project view"><button type="button" className={view === 'list' ? 'active' : ''} onClick={() => setView('list')} aria-pressed={view === 'list'}><List size={15}/> List</button><button type="button" className={view === 'cards' ? 'active' : ''} onClick={() => setView('cards')} aria-pressed={view === 'cards'}><LayoutGrid size={15}/> Cards</button></div></div>}
+    {createdProject && <div className="ex-export-status" role="status"><Check size={16}/> {createdProject}.<button aria-label="Dismiss project message" onClick={() => setCreatedProject('')}><X size={16}/></button></div>}
+    {creating && <form className="ex-project-form ex-panel" onSubmit={createProject}>
+      <div className="ex-project-form-head"><div><span className="ex-kicker">{isEditing ? 'EDIT PROJECT' : 'NEW PROJECT'}</span><h2>{isEditing ? 'Edit project' : 'Create project'}</h2></div><button type="button" className="ex-close-inline" onClick={cancelForm} aria-label="Close project form"><X size={18}/></button></div>
+      <div className="ex-project-steps" aria-label="Project creation steps"><span className={projectStep === 1 ? 'active' : ''}>1. Project details</span><span className={projectStep === 2 ? 'active' : ''}>2. Camera & zones</span></div>
+      {projectStep === 1 && <><div className="ex-project-fields">
+        <label>Project name<input required value={form.name} onChange={event => updateField('name', event.target.value)} placeholder="Project name"/></label>
+        <label>Location<input required value={form.location} onChange={event => updateField('location', event.target.value)} placeholder="City, State"/></label>
+        <label>Status<select value={form.status} onChange={event => updateField('status', event.target.value)}>{projectCategories.filter(item => item !== 'All').map(item => <option key={item}>{item}</option>)}</select></label>
+        <label className="ex-project-span">Project Description<textarea required rows={4} value={form.description} onChange={event => updateField('description', event.target.value)} placeholder="Brief project description"/></label>
+        <label>Start Date<input required type="date" value={form.startDate} onChange={event => updateField('startDate', event.target.value)}/></label>
+        <label>End Date<input required type="date" value={form.endDate} onChange={event => updateField('endDate', event.target.value)}/></label>
+        <label>Assignee<select value={form.assignee} onChange={event => updateField('assignee', event.target.value)}>{managers.map(manager => <option key={manager}>{manager}</option>)}</select></label>
+      </div>
+      <fieldset className="ex-equipment-checks"><legend>List of equipment's going to use</legend>{equipmentChecklist.map(item => <label key={item}><input type="checkbox" checked={form.equipment.includes(item)} onChange={() => toggleEquipment(item)}/><span>{item}</span></label>)}</fieldset>
+      <div className="ex-project-actions"><button type="button" className="ex-button" onClick={cancelForm}>Cancel</button><button type="button" className="ex-button dark" disabled={!canContinueProject} onClick={() => setProjectStep(2)}>Next: Camera selection</button></div></>}
+      {projectStep === 2 && <><div className="ex-project-fields ex-camera-fields">
+        <label>Camera selection<select value={form.camera} onChange={event => updateField('camera', event.target.value)}>{cameraOptions.map(camera => <option key={camera}>{camera}</option>)}</select></label>
+        <label>Camera link<input type="url" value={form.cameraLink} onChange={event => updateField('cameraLink', event.target.value)} placeholder="https://camera-feed.example/video"/></label>
+        <label className="ex-project-upload">Video from camera<input type="file" accept="video/*" onChange={event => updateField('videoName', event.target.files?.[0]?.name || '')}/><span>{form.videoName || 'Add video to unlock zone creation'}</span></label>
+      </div>
+      {form.camera && <figure className="ex-camera-preview"><img src={cameraPreview} alt="Construction camera preview"/><button type="button" aria-label="Play camera preview"><span/> </button><figcaption><strong>{form.camera}</strong><span>{form.cameraLink || form.videoName || 'Selected camera preview'}</span></figcaption></figure>}
+      <section className="ex-zone-builder" aria-label="Zone creation">
+        <div className="ex-project-form-head"><div><span className="ex-kicker">ZONE SETUP</span><h2>Create zone</h2></div></div>
+        {!showZoneForm ? <div className="ex-zone-start"><button type="button" className="ex-button dark" onClick={() => setShowZoneForm(true)}><Plus size={16}/> Create Zone</button></div> : <><div className="ex-project-fields">
+          <label>Zone name<input value={zoneForm.name} onChange={event => setZoneForm(current => ({ ...current, name: event.target.value }))} placeholder="Zone name"/></label>
+          <label>Worker Limit<input type="number" min="1" value={zoneForm.workerLimit} onChange={event => setZoneForm(current => ({ ...current, workerLimit: event.target.value }))} placeholder="Worker limit"/></label>
+          <label>Min Cluster Size<input type="number" min="1" value={zoneForm.minClusterSize} onChange={event => setZoneForm(current => ({ ...current, minClusterSize: event.target.value }))} placeholder="Min cluster size"/></label>
+          <label>Crowding sensitivity<select value={zoneForm.crowdingSensitivity} onChange={event => setZoneForm(current => ({ ...current, crowdingSensitivity: event.target.value }))}><option>Normal</option><option>Tight</option><option>Loose</option></select></label>
+          <label>Break Time<input type="time" value={zoneForm.breakTime} onChange={event => setZoneForm(current => ({ ...current, breakTime: event.target.value }))}/></label>
+          <label className="ex-overlap-check"><input type="checkbox" checked={zoneForm.allowOverlap} onChange={event => setZoneForm(current => ({ ...current, allowOverlap: event.target.checked }))}/><span>Allow overlap</span></label>
+        </div>
+        <fieldset className="ex-equipment-checks"><legend>Task - Multi selection</legend>{taskOptions.map(task => <label key={task}><input type="checkbox" checked={zoneForm.tasks.includes(task)} onChange={() => toggleZoneMulti('tasks', task)}/><span>{task}</span></label>)}</fieldset>
+        <fieldset className="ex-equipment-checks"><legend>Equipment - Multi selection</legend>{equipmentChecklist.map(item => <label key={item}><input type="checkbox" checked={zoneForm.equipment.includes(item)} onChange={() => toggleZoneMulti('equipment', item)}/><span>{item}</span></label>)}</fieldset>
+        <div className="ex-project-actions"><button type="button" className="ex-button" onClick={() => { setShowZoneForm(false); setZoneForm(emptyZoneForm); }}>Cancel Zone</button><button type="button" className="ex-button" onClick={addZone}>Add Zone</button></div></>}
+        {form.zones.length > 0 && <div className="ex-zone-list">{form.zones.map(zone => <article key={zone.id}><div><strong>{zone.name}</strong><span>{zone.workerLimit} workers · {zone.crowdingSensitivity}</span></div><button type="button" aria-label={`Remove ${zone.name}`} onClick={() => removeZone(zone.id)}><X size={16}/></button></article>)}</div>}
+      </section>
+      <div className="ex-project-actions"><button type="button" className="ex-button" onClick={() => setProjectStep(1)}>Back</button><button type="submit" className="ex-button dark">{isEditing ? 'Save Changes' : 'Create Project'}</button></div></>}
+    </form>}
+    {view === 'cards' ? <div className="ex-project-list" aria-label="Project cards">
+      {visibleProjects.map(project => <article className="ex-project-card" key={project.id}><div className="ex-project-card-head"><span className={`ex-tag ${project.status === 'Active' ? 'green' : project.status === 'Finished' ? 'amber' : 'neutral'}`}>{project.status}</span>{projectActions(project)}</div><div><h2>{project.name}</h2><p>{project.description}</p></div><dl><div><dt>Location</dt><dd>{project.location}</dd></div><div><dt>Timeline</dt><dd>{project.startDate} to {project.endDate}</dd></div><div><dt>Assignee</dt><dd>{project.assignee}</dd></div><div><dt>Equipment</dt><dd>{project.equipment.join(', ') || 'Not selected'}</dd></div></dl></article>)}
+    </div> : <div className="ex-project-table" role="table" aria-label="Project list"><div role="row" className="ex-project-table-head"><span role="columnheader">Project</span><span role="columnheader">Status</span><span role="columnheader">Location</span><span role="columnheader">Assignee</span><span role="columnheader">Timeline</span><span role="columnheader">Actions</span></div>{visibleProjects.map(project => <div role="row" className="ex-project-table-row" key={project.id}><div role="cell"><strong>{project.name}</strong><small>{project.description}</small></div><span role="cell" className={`ex-tag ${project.status === 'Active' ? 'green' : project.status === 'Finished' ? 'amber' : 'neutral'}`}>{project.status}</span><span role="cell">{project.location}</span><span role="cell">{project.assignee}</span><span role="cell">{project.startDate} to {project.endDate}</span><div role="cell">{projectActions(project)}</div></div>)}</div>}
+  </section>;
+}
+
+function ManagersAdmin() {
+  const [managerList, setManagerList] = useState(managerProfiles);
+  const [creating, setCreating] = useState(false);
+  const [editingId, setEditingId] = useState('');
+  const [view, setView] = useState('cards');
+  const [form, setForm] = useState(emptyManagerForm);
+  const [message, setMessage] = useState('');
+  const visibleManagers = managerList;
+  const isEditing = Boolean(editingId);
+  function updateField(field, value) { setForm(current => ({ ...current, [field]: value })); }
+  function cancelForm() { setCreating(false); setEditingId(''); setForm(emptyManagerForm); }
+  function saveManager(event) {
+    event.preventDefault();
+    if (isEditing) {
+      setManagerList(current => current.map(manager => manager.id === editingId ? { ...manager, ...form } : manager));
+      setMessage(`${form.name} updated`);
+      setEditingId('');
+    } else {
+      const next = { id: `${form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'manager'}-${managerList.length + 1}`, ...form };
+      setManagerList(current => [next, ...current]);
+      setMessage(`${form.name} added`);
+    }
+    setForm(emptyManagerForm);
+    setCreating(false);
+  }
+  function startEdit(manager) {
+    setForm({ name: manager.name, email: manager.email, phone: manager.phone, role: manager.role, project: manager.project });
+    setEditingId(manager.id);
+    setCreating(true);
+    setMessage('');
+  }
+  function deleteManager(manager) {
+    setManagerList(current => current.filter(item => item.id !== manager.id));
+    if (editingId === manager.id) cancelForm();
+    setMessage(`${manager.name} deleted`);
+  }
+  const managerActions = manager => <div className="ex-project-card-actions"><button type="button" aria-label={`Edit ${manager.name}`} title="Edit manager" onClick={() => startEdit(manager)}><Pencil size={15}/><span>Edit</span></button><button type="button" aria-label={`Delete ${manager.name}`} title="Delete manager" onClick={() => deleteManager(manager)}><Trash2 size={15}/><span>Delete</span></button></div>;
+  return <section className="ex-projects-page" aria-labelledby="managers-title">
+    <header className="ex-heading ex-projects-heading"><div><span className="ex-kicker">ADMIN WORKSPACE</span><h1 id="managers-title">Managers</h1><p>Manage project managers, assignments and availability.</p></div><div className="ex-project-heading-actions"><span className="ex-project-count"><strong>{visibleManagers.length}</strong><span>{visibleManagers.length === 1 ? 'Manager' : 'Managers'}</span></span><button type="button" className="ex-button dark" onClick={() => setCreating(true)}><Plus size={16}/> Add New Manager</button></div></header>
+    <div className="ex-project-filter ex-manager-viewbar"><div className="ex-project-view-toggle" role="group" aria-label="Manager view"><button type="button" className={view === 'list' ? 'active' : ''} onClick={() => setView('list')} aria-pressed={view === 'list'}><List size={15}/> List</button><button type="button" className={view === 'cards' ? 'active' : ''} onClick={() => setView('cards')} aria-pressed={view === 'cards'}><LayoutGrid size={15}/> Cards</button></div></div>
+    {message && <div className="ex-export-status" role="status"><Check size={16}/> {message}.<button aria-label="Dismiss manager message" onClick={() => setMessage('')}><X size={16}/></button></div>}
+    {creating && <form className="ex-project-form ex-panel" onSubmit={saveManager}>
+      <div className="ex-project-form-head"><div><span className="ex-kicker">{isEditing ? 'EDIT MANAGER' : 'NEW MANAGER'}</span><h2>{isEditing ? 'Edit manager' : 'Add new manager'}</h2></div><button type="button" className="ex-close-inline" onClick={cancelForm} aria-label="Close manager form"><X size={18}/></button></div>
+      <div className="ex-project-fields">
+        <label>Manager name<input required value={form.name} onChange={event => updateField('name', event.target.value)} placeholder="Manager name"/></label>
+        <label>Email<input required type="email" value={form.email} onChange={event => updateField('email', event.target.value)} placeholder="manager@boldt.com"/></label>
+        <label>Phone<input required value={form.phone} onChange={event => updateField('phone', event.target.value)} placeholder="Phone number"/></label>
+        <label>Role<input required value={form.role} onChange={event => updateField('role', event.target.value)} placeholder="Manager role"/></label>
+        <label>Assigned project<select value={form.project} onChange={event => updateField('project', event.target.value)}>{initialProjects.map(project => <option key={project.id}>{project.name}</option>)}</select></label>
+      </div>
+      <div className="ex-project-actions"><button type="button" className="ex-button" onClick={cancelForm}>Cancel</button><button type="submit" className="ex-button dark">{isEditing ? 'Save Changes' : 'Add Manager'}</button></div>
+    </form>}
+    {view === 'cards' ? <div className="ex-project-list" aria-label="Manager cards">
+      {visibleManagers.map(manager => <article className="ex-project-card ex-manager-card" key={manager.id}><div className="ex-project-card-head ex-manager-card-actions">{managerActions(manager)}</div><div><h2>{manager.name}</h2><p>{manager.role}</p></div><dl><div><dt>Email</dt><dd>{manager.email}</dd></div><div><dt>Phone</dt><dd>{manager.phone}</dd></div><div><dt>Assigned project</dt><dd>{manager.project}</dd></div><div><dt>Role</dt><dd>{manager.role}</dd></div></dl></article>)}
+    </div> : <div className="ex-project-table ex-manager-table" role="table" aria-label="Manager list"><div role="row" className="ex-project-table-head"><span role="columnheader">Manager</span><span role="columnheader">Role</span><span role="columnheader">Project</span><span role="columnheader">Contact</span><span role="columnheader">Actions</span></div>{visibleManagers.map(manager => <div role="row" className="ex-project-table-row" key={manager.id}><div role="cell"><strong>{manager.name}</strong><small>{manager.email}</small></div><span role="cell">{manager.role}</span><span role="cell">{manager.project}</span><span role="cell">{manager.phone}</span><div role="cell">{managerActions(manager)}</div></div>)}</div>}
+  </section>;
+}
+
 export default function ExecutiveDashboard({ onLogout, name, email }) {
   const [section, setSection] = useState('overview');
   const [dashboardTab, setDashboardTab] = useState('reports');
@@ -75,7 +267,7 @@ export default function ExecutiveDashboard({ onLogout, name, email }) {
   const [riskEvidence, setRiskEvidence] = useState(currentRiskEvidence);
   const selected = alerts[selectedAlert];
   const selectedEquipment = equipmentOptions.find(item => item.id === selectedEquipmentId) || equipmentOptions[0];
-  const nav = [['overview', LayoutDashboard, 'Dashboard'], ['production', ChartNoAxesCombined, 'Extraction'], ['efficiency', HardHat, 'Preprocess'], ['risk', ShieldAlert, 'Detection'], ['save-result', ShieldAlert, 'Save Result']];
+  const nav = [['overview', LayoutDashboard, 'Dashboard'], ['projects', FolderKanban, 'Projects'], ['managers', Users, 'Managers'], ['production', ChartNoAxesCombined, 'Extraction'], ['efficiency', HardHat, 'Preprocess'], ['risk', ShieldAlert, 'Detection'], ['save-result', ShieldAlert, 'Save Result']];
   useEffect(() => {
     function syncRoute() {
       setDashboardTab('reports');
@@ -98,6 +290,7 @@ export default function ExecutiveDashboard({ onLogout, name, email }) {
     if (id === 'save-result') { exportReport(); return; }
     setDashboardTab('reports');
     setSection(id);
+    if (id === 'projects' || id === 'managers') { window.history.replaceState(null, '', `#${id}`); return; }
     if (riskEvidence) window.location.hash = id;
     else requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   }
@@ -120,11 +313,13 @@ export default function ExecutiveDashboard({ onLogout, name, email }) {
       <div className="ex-sidebar-bottom"><div className="ex-source-note"><span className="ex-live-dot"/> Report snapshot<p>One zone. A focused view of the work that matters.</p><button onClick={() => setEvidence({title: 'About this report', source: 'Supplied reference', evidence: 'This dashboard uses the Figma reference for Construction Stella, Zone 1, dated 16 September 2026. The illustrative trend and rounded totals are reproduced as supplied, independently of the summary metrics.', next: 'Connect dated operational reports to support project comparisons, historical trends and schedule assessments.'})}><CircleHelp size={15}/> Data & methodology</button></div><div className="ex-profile"><span>{(name || email || 'E').slice(0,1).toUpperCase()}</span><div><strong>{name || 'Executive'}</strong><small>Leadership view</small></div><button aria-label="Log out" title="Log out" onClick={onLogout}><LogOut size={18}/></button></div></div>
     </aside>
     <main className="ex-main">
-      <div className="ex-topbar"><span>Workspace <ChevronRight size={14}/> <strong>{riskEvidence ? `Risk evidence / ${riskEvidence.name}` : 'Executive Insights'}</strong></span><span className="ex-snapshot"><span className="ex-live-dot"/> Last update: 16 September, 2026 | 09:00 AM</span></div>
+      <div className="ex-topbar"><span>Workspace <ChevronRight size={14}/> <strong>{riskEvidence ? `Risk evidence / ${riskEvidence.name}` : section === 'projects' ? 'Projects' : section === 'managers' ? 'Managers' : 'Executive Insights'}</strong></span><span className="ex-snapshot"><span className="ex-live-dot"/> Last update: 16 September, 2026 | 09:00 AM</span></div>
       <div className="ex-content">
         {riskEvidence && <RiskEvidence alert={riskEvidence} total={totalAlerts} close={backToDashboard}/>} 
-        <div hidden={Boolean(riskEvidence)}>
-        <header className="ex-heading" id="overview"><div><span className="ex-kicker">Executive Insights.</span><h1>Dashboard</h1><p>Production, efficiency and operational risk at a glance.</p></div>{dashboardTab === 'reports' && <button className="ex-button dark" onClick={exportReport}><Download size={16}/> Export executive report</button>}</header>
+        {section === 'projects' && !riskEvidence && <ProjectsAdmin/>}
+        {section === 'managers' && !riskEvidence && <ManagersAdmin/>}
+        <div hidden={Boolean(riskEvidence) || section === 'projects' || section === 'managers'}>
+        <header className="ex-heading" id="overview"><div><span className="ex-kicker">Executive Insights.</span><h1>Dashboard</h1><p>Production, efficiency and operational risk at a glance.</p></div>{dashboardTab === 'reports' && <ConfidenceScore/>}</header>
         <div className="ex-dashboard-tabs" role="tablist" aria-label="Dashboard data views">
           {[['reports', 'Reports'], ['live', 'Live Data']].map(([id, label]) => <button type="button" key={id} role="tab" id={`tab-${id}`} aria-selected={dashboardTab === id} aria-controls={`panel-${id}`} tabIndex={dashboardTab === id ? 0 : -1} onClick={() => setDashboardTab(id)} onKeyDown={event => {
             if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
@@ -134,12 +329,12 @@ export default function ExecutiveDashboard({ onLogout, name, email }) {
               document.getElementById(`tab-${next}`)?.focus();
             }
           }}>{label}</button>)}
+          {dashboardTab === 'reports' && <div className="ex-filter-controls"><label><Building2 size={16}/><span>Project<select aria-label="Project"><option>Construction Stella</option></select></span></label><label><Layers3 size={16}/><span>Zone<select aria-label="Zone"><option>Zone 1</option></select></span></label><label><CalendarDays size={16}/><span>Reporting period<select aria-label="Reporting period"><option>Till Today</option></select></span></label></div>}
         </div>
         <div id="panel-live" role="tabpanel" aria-labelledby="tab-live" hidden={dashboardTab !== 'live'} tabIndex={0}>
           {dashboardTab === 'live' && <LiveData/>}
         </div>
         <div id="panel-reports" role="tabpanel" aria-labelledby="tab-reports" hidden={dashboardTab !== 'reports'} tabIndex={0}>
-        <div className="ex-filters"><label><Building2 size={16}/><span>Project<select aria-label="Project"><option>Construction Stella</option></select></span></label><label><Layers3 size={16}/><span>Zone<select aria-label="Zone"><option>Zone 1</option></select></span></label><label><CalendarDays size={16}/><span>Reporting period<select aria-label="Reporting period"><option>Till Today</option></select></span></label><div className="ex-confidence" role="meter" aria-label="Confidence Score" aria-valuemin={0} aria-valuemax={100} aria-valuenow={80}><div className="ex-confidence-gauge" aria-hidden="true">{Array.from({length:20}, (_, index) => <i key={index} className={index < 16 ? 'filled' : undefined} style={{transform: `rotate(${-85.5 + index * 9}deg)`}}/>)}<strong>80%</strong></div><span>Confidence Score</span></div></div>
         <section className="ex-screenshot-snapshot" aria-labelledby="snapshot-heading">
           <div className="ex-section-heading"><h2 id="snapshot-heading">Key performance</h2><span>Total streaming: 4 hours</span></div>
           <div className="ex-performance-cards" aria-label="Key performance metrics">
