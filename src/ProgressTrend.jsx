@@ -25,7 +25,7 @@ const format = value => `${value.toFixed(1)}%`;
 
 export default function ProgressTrend() {
   const [visible, setVisible] = useState({ planned: true, actual: true });
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState(() => progressData.findIndex(point => point.date === 'Sep 10'));
   const index = active ?? progressData.length - 1;
   const point = progressData[index];
   const difference = Number((point.actual - point.planned).toFixed(1));
@@ -53,7 +53,7 @@ export default function ProgressTrend() {
       </div>
     </div>
     <div className="ex-trend-chart ex-interactive-trend">
-      <div className="ex-trend-plot" role="slider" tabIndex={0} aria-label="Daily progress" aria-valuemin={1} aria-valuemax={14} aria-valuenow={index + 1} aria-valuetext={description} aria-describedby="trend-help" onKeyDown={selectKey} onFocus={() => setActive(index)} onBlur={() => setActive(null)} onPointerMove={selectPointer} onPointerDown={selectPointer} onPointerLeave={event => { if (document.activeElement !== event.currentTarget) setActive(null); }}>
+      <div className="ex-trend-plot" role="slider" tabIndex={0} aria-label="Daily progress" aria-valuemin={1} aria-valuemax={14} aria-valuenow={index + 1} aria-valuetext={description} aria-describedby="trend-help" onKeyDown={selectKey} onFocus={() => setActive(index)} onPointerMove={selectPointer} onPointerDown={selectPointer}>
         <svg viewBox="0 0 640 260" preserveAspectRatio="none" aria-hidden="true">
           <defs><linearGradient id="reference-trend-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#8d7caf" stopOpacity=".25"/><stop offset="100%" stopColor="#504268" stopOpacity=".015"/></linearGradient></defs>
           {[0, 20, 40, 60, 80].map(tick => <g key={tick}><path className="ex-trend-grid" d={`M44 ${y(tick)}H620`}/><text x="32" y={y(tick) + 4} textAnchor="end" className="ex-trend-tick">{tick}%</text></g>)}
